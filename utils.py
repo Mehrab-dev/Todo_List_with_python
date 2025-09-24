@@ -2,6 +2,7 @@ import json
 import uuid
 import datetime
 import os
+from json import JSONDecodeError
 
 data_file = "task.json"
 
@@ -34,5 +35,17 @@ def add_task(task_name,tags=None,description=None,status=None) :
 
     return new_data
 
-add_task(task_name="Buy milk")
+def list_tasks() :
+    if os.path.exists(data_file) :
+        with open(data_file,"r",encoding="utf-8") as r :
+            try :
+                r_data = json.load(r)
+            except JSONDecodeError :
+                r_data = []
+    else :
+        r_data = []
+
+    return r_data
+
+
 

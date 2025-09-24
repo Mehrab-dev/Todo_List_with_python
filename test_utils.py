@@ -13,3 +13,13 @@ def test_add_task(tmp_path,monkeypatch) :
         tasks = json.load(t)
     assert len(tasks) == 1
     assert tasks[0]["task_name"] == "Buy Milk"
+
+def test_list_tasks(tmp_path,monkeypatch) :
+    data_file = tmp_path / "task.json"
+    monkeypatch.setattr(utils,"data_file",str(data_file))
+
+    utils.add_task(task_name="Buy_Car",description="in April")
+    l_tasks = utils.list_tasks()
+
+    assert len(l_tasks) == 1
+    assert l_tasks[0]["task_name"] == "Buy_Car"
