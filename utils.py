@@ -8,7 +8,7 @@ data_file = "task.json"
 
 def add_task(task_name,tags=None,description=None,status=None) :
     id = str(uuid.uuid4())
-    date = str(datetime.date.today())
+    date = str(datetime.datetime.today())
     new_data = {
         "id":id,
         "task_name" : task_name,
@@ -44,8 +44,43 @@ def list_tasks() :
                 r_data = []
     else :
         r_data = []
-
     return r_data
+
+def update_tasks(task_name,tags=None,description=None,status=None) :
+    u_date = str(datetime.datetime.today())
+    if os.path.exists(data_file):
+        with open(data_file,"r",encoding="utf-8") as o :
+            try :
+                old_data = json.load(o)
+            except JSONDecodeError :
+                old_data = []
+    else :
+        old_data = []
+
+    for i in old_data :
+        if i["task_name"] == task_name :
+            if description is not None :
+                i["description"] = description
+            if status is not None :
+                i["status"] = status
+            if tags is not None :
+                i["tags"] = tags
+            i["updated"] = u_date
+            update = i
+            break
+
+    with open(data_file,"w",encoding="utf-8") as n :
+        json.dump(old_data,n,ensure_ascii=False,indent=2)
+
+    return update
+
+
+
+
+
+
+
+
 
 
 
