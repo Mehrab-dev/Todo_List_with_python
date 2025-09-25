@@ -40,3 +40,13 @@ def test_update_task(tmp_path,monkeypatch) :
         u_data = json.load(u)
     assert u_data[0]["description"] == "for school"
     assert u_data[0]["status"] == "done"
+
+def test_delete_task(tmp_path,monkeypatch) :
+    data_file = tmp_path / "task.json"
+    monkeypatch.setattr(utils,"data_file",str(data_file))
+
+    fake_task = utils.add_task(task_name="Buy Milk")
+    assert fake_task["task_name"] == "Buy Milk"
+
+    delete = utils.delete_task(tas_name="Buy Milk")
+    assert delete is True

@@ -13,7 +13,7 @@ def add_task(task_name,tags=None,description=None,status=None) :
         "id":id,
         "task_name" : task_name,
         "today_is_date" : date,
-        "description" : description if description else None,
+        "description" : description if description else " ",
         "status" : status if status else " ",
         "tags" : tags if tags else " ",
         "updated" : date
@@ -74,7 +74,25 @@ def update_tasks(task_name,tags=None,description=None,status=None) :
 
     return update
 
-
+def delete_task(tas_name) :
+    if os.path.exists(data_file) :
+        with open(data_file,"r",encoding="utf-8") as d :
+            try :
+                d_task = json.load(d)
+            except JSONDecodeError :
+                d_task = []
+    else :
+        d_task = []
+    delete = False
+    for i in d_task :
+        if i["task_name"] == tas_name :
+            d_task.remove(i)
+            delete = True
+            break
+    if delete :
+        with open(data_file,"w",encoding="utf-8") as nd :
+            json.dump(d_task,nd,ensure_ascii=False,indent=2)
+    return delete
 
 
 

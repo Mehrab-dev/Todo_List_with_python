@@ -1,5 +1,5 @@
 import argparse
-from utils import add_task,list_tasks,update_tasks
+from utils import add_task, list_tasks, update_tasks, delete_task
 
 parser = argparse.ArgumentParser(description="Todo List")
 
@@ -18,6 +18,9 @@ up_task.add_argument("--t",help="tags for task in task update",required=False)
 up_task.add_argument("--ds",help="description for task (in update)",required=False)
 up_task.add_argument("--st",help="to change to task status",required=False)
 
+del_task = sub_argument.add_parser("del",help="to a delete task from json file with task_name")
+del_task.add_argument("task_name")
+
 args = parser.parse_args()
 
 if args.command == "add" :
@@ -29,7 +32,8 @@ if args.command == "list" :
 if args.command == "u" :
     print(update_tasks(task_name=args.task_name,tags=args.t,description=args.ds,status=args.st))
 
-
+if args.command == "del" :
+    delete_task(args.task_name)
 
 
 
