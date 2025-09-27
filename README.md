@@ -20,5 +20,5 @@
 python  main.py command argument
 
 # Examples
-python main.py add Buy_Milk --t buy --ds for home
-python main.py del Buy_Milk
+* python main.py add Buy_Milk --t buy --ds for home
+* python main.py del Buy_Milk
