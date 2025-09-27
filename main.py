@@ -8,7 +8,7 @@ a_task = sub_argument.add_parser("add",help="for add task")
 a_task.add_argument("task_name")
 a_task.add_argument("--t",help="tags for task",required=False)
 a_task.add_argument("--ds",help="description of the task",required=False)
-a_task.add_argument("--st",help="status the task",required=False)
+a_task.add_argument("--st",help="status the task",required=False,choices=["pending","done"],default="pending")
 
 li_tasks = sub_argument.add_parser("list",help="for list all tasks ")
 
@@ -16,7 +16,7 @@ up_task = sub_argument.add_parser("u",help="for update task")
 up_task.add_argument("task_name",help="identifier to identify the task")
 up_task.add_argument("--t",help="tags for task in task update",required=False)
 up_task.add_argument("--ds",help="description for task (in update)",required=False)
-up_task.add_argument("--st",help="to change to task status",required=False)
+up_task.add_argument("--st",help="to change to task status",required=False,choices=["pending","done"],default="pending")
 
 del_task = sub_argument.add_parser("del",help="to a delete task from json file with task_name")
 del_task.add_argument("task_name")
