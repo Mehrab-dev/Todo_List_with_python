@@ -50,3 +50,23 @@ def test_delete_task(tmp_path,monkeypatch) :
 
     delete = utils.delete_task(tas_name="Buy Milk")
     assert delete is True
+
+def test_search_task_with_tag(tmp_path,monkeypatch) :
+    data_file = tmp_path / "task.json"
+    monkeypatch.setattr(utils,"data_file",str(data_file))
+
+    fake_data = utils.add_task(task_name="Buy_Milk",tags="Buy")
+    assert fake_data["task_name"] == "Buy_Milk"
+
+    search = utils.search_task_with_tags(tag="Buy")
+    assert search[0]["tags"] == "Buy"
+
+def test_search_task_with_name(tmp_path,monkeypatch) :
+    data_file = tmp_path / "task.json"
+    monkeypatch.setattr(utils,"data_file",str(data_file))
+
+    fake_data = utils.add_task(task_name="Buy_Milk")
+    assert fake_data["task_name"] == "Buy_Milk"
+
+    search = utils.search_task_with_name(task_name="Buy_Milk")
+    assert search[0]["task_name"] == "Buy_Milk"

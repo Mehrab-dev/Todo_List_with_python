@@ -94,6 +94,36 @@ def delete_task(tas_name) :
             json.dump(d_task,nd,ensure_ascii=False,indent=2)
     return delete
 
+def search_task_with_tags(tag) :
+    if os.path.exists(data_file) :
+        with open(data_file,"r",encoding="utf-8") as s :
+            try :
+                all_data = json.load(s)
+            except JSONDecodeError :
+                all_data = []
+    else :
+        all_data = []
+    searched_data = []
+    for i in all_data :
+        if tag in i["tags"] :
+            searched_data.append(i)
+    return searched_data
+
+def search_task_with_name(task_name) :
+    if os.path.exists(data_file) :
+        with open(data_file,"r",encoding="utf-8") as s :
+            try :
+                all_data = json.load(s)
+            except JSONDecodeError :
+                all_data = []
+    else :
+        all_data = []
+    searched = []
+    for i in all_data :
+        if task_name in i["task_name"] :
+            searched.append(i)
+    return searched
+
 
 
 
